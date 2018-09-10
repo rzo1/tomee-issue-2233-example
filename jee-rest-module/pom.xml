@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>my.sample.javaee</groupId>
+        <artifactId>jee-sample</artifactId>
+        <version>2.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jee-rest-module</artifactId>
+    <version>2.0-SNAPSHOT</version>
+
+    <packaging>war</packaging>
+
+    <properties>
+        <sample.artifact.name>${project.artifactId}</sample.artifact.name>
+        <sample.artifact.version>${project.version}</sample.artifact.version>
+    </properties>
+    <dependencies>
+        <!-- 3rd party dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Only required to run tests in an IDE that bundles an older version -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Only required to run tests in an IDE that bundles an older version -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-core</artifactId>
+            <!--
+            The <scope>test</scope> guarantees that non of your runtime
+            code is dependent on any OpenEJB classes.
+            -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-server</artifactId>
+            <version>${openejb.version}</version>
+            <!--
+            The <scope>test</scope> guarantees that non of your runtime
+            code is dependent on any OpenEJB classes.
+            -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-cxf</artifactId>
+            <!--
+            The <scope>test</scope> guarantees that non of your runtime
+            code is dependent on any OpenEJB classes.
+            -->
+            <scope>test</scope>
+        </dependency>
+        <!--Required for WebServices and RESTful WebServices-->
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-cxf-rs</artifactId>
+            <!--
+            The <scope>test</scope> guarantees that non of your runtime
+            code is dependent on any OpenEJB classes.
+            -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.parsers</groupId>
+            <artifactId>jaxp-ri</artifactId>
+            <version>1.4.5</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>${argLine}</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven.war.version}</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                            <filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
+                            <includes>
+                                <include>**/resources.xml</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>${sample.artifact.name}-${sample.artifact.version}</warName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

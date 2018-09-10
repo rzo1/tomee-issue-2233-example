@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <Service id="johnzon" class-name="org.apache.openejb.server.cxf.rs.johnzon.TomEEConfigurableJohnzon">
+        accessModeName = field
+        supportHiddenAccess = true
+        doCloseOnStreams = false
+        version = 2
+        skipNull = true
+        datePattern = yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    </Service>
+</resources>
+

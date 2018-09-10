@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>my.sample.javaee</groupId>
+    <artifactId>jee-sample</artifactId>
+    <version>2.0-SNAPSHOT</version>
+    <modules>
+        <module>jee-rest-module</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <profiles>
+        <profile>
+            <id>tomee-7.0.5</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <openejb.version>7.0.5</openejb.version>
+                <tomee.version>7.0.5</tomee.version>
+                <tomee.plugin.version>7.0.5</tomee.plugin.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomee-7.1.0</id>
+            <properties>
+                <openejb.version>7.1.0</openejb.version>
+                <tomee.version>7.1.0</tomee.version>
+                <tomee.plugin.version>7.1.0</tomee.plugin.version>
+            </properties>
+        </profile>
+    </profiles>
+    <properties>
+        <!-- Maven specific settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+        <maven.compile.encoding>UTF-8</maven.compile.encoding>
+        <java.source>8</java.source>
+        <java.target>8</java.target>
+
+        <!-- other 3rd party library settings -->
+        <javaee.api.version>7.0-1</javaee.api.version>
+
+        <!-- additional dependencies -->
+        <slf4j.version>1.7.21</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <enunciate.version>2.11.1</enunciate.version>
+
+        <!-- additional dependencies -->
+        <junit.version>4.12</junit.version>
+        <junit.jupiter.version>5.2.0</junit.jupiter.version>
+        <junit.vintage.version>5.2.0</junit.vintage.version>
+        <junit.platform.version>1.0.1</junit.platform.version>
+        <hamcrest.version>1.3</hamcrest.version>
+
+        <!-- maven plugin dependencies -->
+        <minimum.maven.version>3.3.9</minimum.maven.version>
+        <!-- Maven Range Syntax -->
+        <required.maven.version>[${minimum.maven.version},)</required.maven.version>
+
+        <maven.compiler.version>3.7.0</maven.compiler.version>
+        <maven.javadoc.version>3.0.1</maven.javadoc.version>
+        <maven.surefire.version>2.22.0</maven.surefire.version>
+        <maven.war.version>3.2.2</maven.war.version>
+
+        <!-- override default version -->
+        <maven.resource.version>3.0.2</maven.resource.version>
+        <maven.deploy.version>2.8.2</maven.deploy.version>
+        <maven.install.version>2.5.2</maven.install.version>
+        <maven.site.version>3.6</maven.site.version>
+        <maven.clean.version>3.0.0</maven.clean.version>
+        <maven.jar.version>2.4</maven.jar.version>
+        <maven.antrun.version>1.3</maven.antrun.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Only required to run tests in an IDE that bundles an older version -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Only required to run tests in an IDE that bundles an older version -->
+            <dependency>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>${junit.vintage.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomee</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomee</groupId>
+                <artifactId>openejb-core</artifactId>
+                <version>${openejb.version}</version>
+                <!--
+                The <scope>test</scope> guarantees that non of your runtime
+                code is dependent on any OpenEJB classes.
+                -->
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomee</groupId>
+                <artifactId>openejb-cxf</artifactId>
+                <version>${openejb.version}</version>
+                <!--
+                The <scope>test</scope> guarantees that non of your runtime
+                code is dependent on any OpenEJB classes.
+                -->
+                <scope>test</scope>
+            </dependency>
+            <!--Required for WebServices and RESTful WebServices-->
+            <dependency>
+                <groupId>org.apache.tomee</groupId>
+                <artifactId>openejb-cxf-rs</artifactId>
+                <version>${openejb.version}</version>
+                <!--
+                The <scope>test</scope> guarantees that non of your runtime
+                code is dependent on any OpenEJB classes.
+                -->
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomee</groupId>
+                <artifactId>openejb-junit</artifactId>
+                <version>${openejb.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.version}</version>
+                    <configuration>
+                        <source>${java.source}</source>
+                        <target>${java.target}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                        <links>
+                            <link>http://docs.oracle.com/javase/10/docs/api/</link>
+                        </links>
+                        <encoding>utf-8</encoding>
+                        <show>public</show>
+                        <detectOfflineLinks>true</detectOfflineLinks>
+                        <detectJavaApiLink>true</detectJavaApiLink>
+                        <!-- Speeds up the build of the javadocs -->
+                        <quiet>true</quiet>
+                        <doclint>none</doclint>
+                        <additionalJOption>-html5</additionalJOption>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.version}</version>
+                    <configuration>
+                        <argLine>-Xmx512m -XX:+CMSClassUnloadingEnabled -Dfile.encoding=UTF-8
+                        </argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${maven.jacoco.version}</version>
+                    <executions>
+                        <execution>
+                            <id>pre-unit-test</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>post-unit-test</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Define default Maven Plugins explicitly here! -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven.resource.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven.clean.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven.install.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven.site.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven.deploy.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven.jar.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+    </build>
+
+
+</project>
