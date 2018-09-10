@@ -1,6 +1,6 @@
 ## Project scope
 
-A simple demo project to reproduce https://issues.apache.org/jira/browse/TOMEE-2143.
+A simple demo project to reproduce https://issues.apache.org/jira/browse/TOMEE-2233.
 
 ## Working Version with TomEE 7.0.5
 
