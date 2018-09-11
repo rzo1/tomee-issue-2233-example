@@ -143,6 +143,29 @@
                     <warName>${sample.artifact.name}-${sample.artifact.version}</warName>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>${tomee.plugin.version}</version>
+                <configuration>
+                    <tomeeVersion>${tomee.version}</tomeeVersion>
+                    <tomeeClassifier>plus</tomeeClassifier>
+                    <debug>true</debug>
+                    <tomeeHttpPort>8282</tomeeHttpPort>
+                    <debugPort>5005</debugPort>
+                    <args>-Dfoo=bar</args>
+                    <config>${project.basedir}/src/test/tomee/conf</config>
+                    <libs>
+                        <lib>log4j:log4j:${log4j.version}</lib>
+                    </libs>
+                    <skipCurrentProject>true</skipCurrentProject>
+                    <webapps>
+                        <webapp>
+                            my.sample.javaee:${sample.artifact.name}:${sample.artifact.version}?name=ROOT
+                        </webapp>
+                    </webapps>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
