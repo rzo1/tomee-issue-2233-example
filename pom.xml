@@ -26,11 +26,11 @@
             </properties>
         </profile>
         <profile>
-            <id>tomee-7.1.0</id>
+            <id>tomee-7.1.1</id>
             <properties>
-                <openejb.version>7.1.0</openejb.version>
-                <tomee.version>7.1.0</tomee.version>
-                <tomee.plugin.version>7.1.0</tomee.plugin.version>
+                <openejb.version>7.1.1-SNAPSHOT</openejb.version>
+                <tomee.version>7.1.1-SNAPSHOT</tomee.version>
+                <tomee.plugin.version>7.1.1-SNAPSHOT</tomee.plugin.version>
             </properties>
         </profile>
     </profiles>
