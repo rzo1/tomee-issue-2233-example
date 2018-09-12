@@ -2,9 +2,7 @@ package my.sample.jee.ws.api.ws;
 
 import my.sample.jee.ws.xto.DemoResponse;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 public interface DemoWSEndpoint {
@@ -21,4 +19,9 @@ public interface DemoWSEndpoint {
     DemoResponse getDemo();
     //Sample: http://localhost:8282/api/v0.1/demos
 
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("demos")
+    DemoResponse postDemo(DemoResponse demoResponse);
 }

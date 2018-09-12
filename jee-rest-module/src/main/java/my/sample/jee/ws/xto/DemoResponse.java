@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class DemoResponse implements Serializable {
-
     private String name;
     private Date theDate;
+    private String iBimsNull = null;
+    private String field = "ich bin ein field access";
 
     public DemoResponse() {
         //needed to please cfx
@@ -31,5 +32,9 @@ public class DemoResponse implements Serializable {
 
     public void setTheDate(Date theDate) {
         this.theDate = theDate;
+    }
+
+    public String getUnsupportedOperation() {
+        throw new IllegalArgumentException();
     }
 }

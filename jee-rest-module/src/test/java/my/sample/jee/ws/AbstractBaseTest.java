@@ -1,7 +1,8 @@
 package my.sample.jee.ws;
 
+import my.sample.jee.GermanTomEEJsonbProvider;
 import my.sample.jee.ws.api.ws.DemoWSEndpoint;
-import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.openejb.OpenEjbContainer;
 import org.apache.openejb.junit.jee.EJBContainerRule;
 import org.apache.openejb.junit.jee.InjectRule;
@@ -12,6 +13,9 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 
 import javax.naming.Context;
+import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * @author rz
@@ -42,9 +46,12 @@ public class AbstractBaseTest {
     @TestResource
     private Context ctx;
 
-    protected DemoWSEndpoint createRestServiceClient() {
-        return JAXRSClientFactory.create("http://localhost:" + PORT + CONTEXT_PATH + DemoWSEndpoint.API_PATH,
-                DemoWSEndpoint.class);
+    protected WebClient createWebClient(String method) {
+        WebClient httpClient = WebClient.create("http://localhost:" + PORT + CONTEXT_PATH, new ArrayList<>(Set.of(new GermanTomEEJsonbProvider<>())));
+        httpClient.path(DemoWSEndpoint.API_PATH + method);
+        httpClient.accept(MediaType.APPLICATION_JSON_TYPE);
+        httpClient.type(MediaType.APPLICATION_JSON_TYPE);
+        return httpClient;
     }
 
 }

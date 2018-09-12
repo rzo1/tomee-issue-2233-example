@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <Service id="johnzon" class-name="org.apache.openejb.server.cxf.rs.johnzon.TomEEJsonbProvider">
-        otherProperties = jsonb.date-format:yyyy-MM-dd'T'HH:mm:ss.SSSZ\njsonb.locale:de
-    </Service>
 </resources>
 

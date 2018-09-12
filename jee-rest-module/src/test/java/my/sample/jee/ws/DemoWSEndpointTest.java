@@ -1,7 +1,7 @@
 package my.sample.jee.ws;
 
-import my.sample.jee.ws.api.ws.DemoWSEndpoint;
 import my.sample.jee.ws.xto.DemoResponse;
+import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.openejb.junit.jee.EJBContainerRunner;
 import org.apache.openejb.junit.jee.config.PropertyFile;
 import org.apache.openejb.testing.EnableServices;
@@ -19,7 +19,6 @@ import static org.junit.Assert.fail;
 public class DemoWSEndpointTest extends AbstractBaseTest {
 
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(DemoWSEndpointTest.class);
-    private DemoWSEndpoint endpoint = createRestServiceClient();
 
 
     @Before
@@ -30,8 +29,10 @@ public class DemoWSEndpointTest extends AbstractBaseTest {
     @Test
     public void testGetDemos() {
         try {
-            DemoResponse demos = endpoint.getDemo();
-            assertNotNull(demos);
+
+            WebClient client = createWebClient("/demos");
+            DemoResponse response = client.get(DemoResponse.class);
+            assertNotNull(response);
         } catch (RuntimeException e) {
             logger.error(e.getLocalizedMessage(), e);
             fail(e.getLocalizedMessage());

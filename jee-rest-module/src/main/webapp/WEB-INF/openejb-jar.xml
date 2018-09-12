@@ -3,7 +3,7 @@
              xsi:schemaLocation="http://www.openejb.org/openejb-jar/1.1">
     <pojo-deployment  class-name="jaxrs-application">
         <properties>
-            cxf.jaxrs.providers = johnzon
+            cxf.jaxrs.providers = my.sample.jee.GermanTomEEJsonbProvider
             openejb.jaxrs.providers.auto=false
             cxf.jaxrs.skip-provider-scanning = true
         </properties>
